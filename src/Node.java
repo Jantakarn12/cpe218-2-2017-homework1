@@ -18,4 +18,8 @@ public class Node {
     public int toDigit(char ch) {
         return ch - '0';
     }
+
+    public String toString(){
+        return String.valueOf(hua);
+    }
 }

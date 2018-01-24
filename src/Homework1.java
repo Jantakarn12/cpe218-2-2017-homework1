@@ -1,23 +1,27 @@
 import java.util.Stack ;
+import javax.swing.*;
 
-public class Homework1 {
+public class Homework1 extends JFrame {
 	static Stack st = new Stack();
 	static Node root;
 
 	public static void main(String[] args) {
-		if (args.length > 0) {
-			String input = args[0];
+		//------------------------------------------------------------------------
+		 if (args.length == 0) {
+			String input = "251-*32*+";
 			for(int i=0;i<input.length();i++){
 				Node node = new Node(input.charAt(i));
 				infix(node);
 				root = node;
 			}
-			inorder(root);
-			System.out.println("="+calculate(root));
+
+			System.out.println(inorder(root)+"="+calculate(root));
+			 TreeIconDemo2.main(root);
 		}
 	}
 
 	public static void infix(Node n){
+
 		if(n.Operator()) {
 			n.right = (Node)st.pop();
 			n.left = (Node)st.pop();
@@ -26,13 +30,16 @@ public class Homework1 {
 			st.push(n);
 		}
 	}
-	public static void inorder(Node n){
-		if(n != root && n.Operator()) System.out.print('(');
-		if(n.left != null) inorder(n.left);
-		System.out.print(n.hua);
-		if(n.right != null) inorder(n.right);
-		if(n != root && n.Operator()) System.out.print(')');
+	public static String inorder(Node n){
+		String txt = "";
+		if(n != root && n.Operator()) txt += ('(');
+		if(n.left != null) txt += inorder(n.left);
+		txt += (n.hua);
+		if(n.right != null) txt += inorder(n.right);
+		if(n != root && n.Operator()) txt += (')');
+		return txt;
 	}
+
 	public static int calculate(Node n){
 			int result;
 			switch (n.hua) {
